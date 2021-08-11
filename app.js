@@ -1,12 +1,24 @@
+"use strict";
+
 document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   const products = new Products();
 
-  products.getProducts().then((products) => ui.displayProducts(products));
+  products
+    .getProducts()
+    .then((products) => {
+      ui.displayProducts(products);
+      Storage.saveProducts(products);
+    })
+    .then(() => {
+      ui.getAddToCartButtons();
+    });
 });
 
 // cart
 let cart = [];
+// buttons
+let buttonsArray = [];
 
 // selectors
 const cartIcon = document.getElementById("cartIcon");
@@ -20,6 +32,8 @@ const itemSize = document.querySelectorAll(".item-size");
 const itemPrice = document.querySelectorAll(".item-price");
 const cartOverlay = document.querySelector(".cart-overlay");
 const cartCloseButton = document.querySelector(".fa-window-close");
+const cartTotal = document.querySelector(".cart-total");
+const itemsQuantityBadge = document.getElementById("itemsQuantityBadge");
 
 // classes
 class Products {
@@ -68,9 +82,60 @@ class UI {
     });
     productsRow.innerHTML = result;
   }
+  getAddToCartButtons() {
+    const buttons = [...document.querySelectorAll(".btn-add")];
+    buttonsArray = buttons;
+
+    buttons.forEach((btn) => {
+      let id = btn.dataset.id;
+
+      let inCart = cart.find((item) => item.id === id);
+
+      if (inCart) {
+        btn.innerText = "IN CART";
+        btn.disabled = true;
+      }
+
+      btn.addEventListener("click", (event) => {
+        event.target.innerText = "IN CART";
+        event.target.disabled = true;
+        // get product from products(storage)
+        let cartItem = { ...Storage.getProduct(id), amount: 1 };
+        // add product to cart
+        cart = [...cart, cartItem];
+        // save cart to local storage
+        Storage.saveCart(cart);
+        // set cart values
+        this.setCartValues(cart);
+        // dispay cart item
+        this.addCartItem(cartItem);
+      });
+    });
+  }
+  setCartValues(cart) {
+    let tempTotal = 0;
+    let itemsQuantity = 0;
+    cart.map((item) => {
+      tempTotal += item.price * item.amount;
+      itemsQuantity += item.amount;
+    });
+    cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
+    itemsQuantityBadge.innerText = itemsQuantity;
+  }
 }
 
-class Storage {}
+class Storage {
+  static saveProducts(products) {
+    localStorage.setItem("products", JSON.stringify(products));
+  }
+  static getProduct(id) {
+    let products = JSON.parse(localStorage.getItem("products"));
+    return products.find((product) => product.id === id);
+  }
+  static saveCart(cart) {
+    localStorage.setItem(cart, JSON.stringify(cart));
+  }
+}
 
 // listeners
 cartIcon.addEventListener("click", displayCart);
