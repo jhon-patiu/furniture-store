@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
   const products = new Products();
 
+  ui.setupApp();
+
   products
     .getProducts()
     .then((products) => {
@@ -12,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(() => {
       ui.getAddToCartButtons();
+      ui.cartLogic();
     });
 });
 
@@ -34,6 +37,9 @@ const cartOverlay = document.querySelector(".cart-overlay");
 const cartCloseButton = document.querySelector(".fa-window-close");
 const cartTotal = document.querySelector(".cart-total");
 const itemsQuantityBadge = document.getElementById("itemsQuantityBadge");
+const cartContent = document.querySelector(".cart-content");
+const removeItems = document.querySelectorAll(".cart-item__remove");
+const clearCartButton = document.querySelector("#clearCartBtn");
 
 // classes
 class Products {
@@ -112,6 +118,7 @@ class UI {
       });
     });
   }
+
   setCartValues(cart) {
     let tempTotal = 0;
     let itemsQuantity = 0;
@@ -121,6 +128,57 @@ class UI {
     });
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
     itemsQuantityBadge.innerText = itemsQuantity;
+  }
+  addCartItem(item) {
+    let div = document.createElement("div");
+    div.classList.add("cart-item");
+    div.innerHTML = `
+                <img src="${item.image}" alt="" class="cart-item__img" />
+                <div class="cart-item__text">
+                  <h5>${item.title}</h5>
+                  <h6>$${item.price}</h6>
+                  <p class="cart-item__remove" data-id=${item.id}>remove</p>
+                </div>
+                <div class="qty-display">
+                  <i class="fas fa-chevron-up" data-id=${item.id}></i>
+                  <p class="item-qty">${item.amount}</p>
+                  <i class="fas fa-chevron-down" data-id=${item.id}></i>
+                </div>
+              `;
+    cartContent.appendChild(div);
+  }
+  setupApp() {
+    cart = Storage.getCart();
+    this.setCartValues(cart);
+    this.populateCart(cart);
+  }
+  populateCart(cart) {
+    cart.forEach((item) => this.addCartItem(item));
+  }
+  cartLogic() {
+    clearCartButton.addEventListener("click", () => {
+      this.clearCart();
+    });
+  }
+  clearCart() {
+    let cartItems = cart.map((item) => item.id);
+    cartItems.forEach((id) => this.removeItem(id));
+  }
+  removeItem(id) {
+    cart = cart.filter((item) => item.id !== id);
+    this.setCartValues(cart);
+    Storage.saveCart(cart);
+    let button = this.getSingleButton(id);
+    button.innerHTML = `
+                <i class="fas fa-cart-plus" id="cartPlusIcon"></i>
+                ADD TO CART`;
+    button.disabled = false;
+    while (cartContent.children.length > 0) {
+      cartContent.removeChild(cartContent.children[0]);
+    }
+  }
+  getSingleButton(id) {
+    return buttonsArray.find((button) => button.dataset.id === id);
   }
 }
 
@@ -135,11 +193,17 @@ class Storage {
   static saveCart(cart) {
     localStorage.setItem(cart, JSON.stringify(cart));
   }
+  static getCart() {
+    return localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
+  }
 }
 
 // listeners
 cartIcon.addEventListener("click", displayCart);
 cartCloseButton.addEventListener("click", closeCart);
+// removeItemButton.addEventListener("click", removeItemInCart);
 
 // functions
 function displayCart() {
@@ -149,3 +213,7 @@ function displayCart() {
 function closeCart() {
   cartOverlay.classList.remove("showCart");
 }
+
+// function removeItemInCart(event) {
+//   event.target.remove(parent);
+// }

@@ -203,15 +203,21 @@
             <span class="close-cart">
               <i class="fas fa-window-close"></i>
             </span>
-            <h2>your cart</h2>
+            <h2>your cart <i class="fas fa-shopping-cart"></i></h2>
             <div class="cart-content">
               <!-- CART ITEM -->
 
               <!-- CART ITEM END -->
-              <div class="cart-footer d-flex justify-content-between">
-                <h3>Your Total : $<span class="cart-total">0</span></h3>
-                <button class="btn btn-danger">CLEAR CART</button>
-              </div>
+            </div>
+            <button class="btn btn-danger" id="clearCartBtn">
+              <i class="fas fa-trash-alt"></i> CLEAR CART
+            </button>
+            <div class="cart-footer d-flex justify-content-between">
+              <h3>Your Total : $<span class="cart-total">0</span></h3>
+              <button class="btn btn-primary" id="checkoutBtn">
+                <i class="fas fa-check"></i>
+                CHECK OUT
+              </button>
             </div>
           </div>
         </div>
