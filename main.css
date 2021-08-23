@@ -377,9 +377,23 @@ footer {
   .grid-item img {
     max-width: 300px;
   }
+
+  .cart {
+  padding: 1em;
+  }
   .cart-overlay {
     width: 90vw;
   }
+
+  .cart-footer {
+    margin: 1em 0;
+    padding: 0.25em;
+  }
+
+  #checkoutBtn {
+  width: 7em;
+  height: auto;
+  font-size: 14px;
 }
 /* attr */
 .attribution {
