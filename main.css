@@ -194,7 +194,7 @@ body {
 
 /* cart display */
 .cart-overlay {
-  background-color: rgb(221, 219, 219);
+  background-color: rgb(240, 240, 240);
   position: absolute;
   top: 0;
   right: 0;
@@ -203,6 +203,7 @@ body {
   transform: translateX(100%);
   transition: all 0.3s ease-in-out;
   z-index: 3;
+  border-radius: 0 0 0 25px;
 }
 
 .fa-window-close {
@@ -275,6 +276,7 @@ body {
   margin: 2em 0;
   padding: 1em;
   background-color: white;
+  border-radius: 15px;
 }
 #checkoutBtn {
   width: 12em;
@@ -351,55 +353,72 @@ footer {
   .cart-overlay {
     width: 75vw;
   }
-}
-@media (max-width: 550px) {
-  footer {
-    background: none;
-  }
-
-  .soc-icons {
-    font-size: 35px;
-    padding-right: 1em;
-  }
-  .fa-phone {
-    font-size: 33px;
-  }
-
-  #skyline {
-    height: auto;
-  }
-
-  .cart-icon,
-  #cartIcon {
-    padding: 0.25em 0;
-  }
-
-  .grid-item img {
-    max-width: 300px;
-  }
-
-  .cart {
-  padding: 1em;
-  }
-  .cart-overlay {
-    width: 90vw;
-  }
 
   .cart-footer {
     margin: 1em 0;
     padding: 0.25em;
   }
-
+  .cart-footer h3 {
+    font-size: 21px;
+  }
   #checkoutBtn {
-  width: 7em;
-  height: auto;
-  font-size: 14px;
-}
-/* attr */
-.attribution {
-  font-size: 15px;
-  text-align: center;
-}
-.attribution a {
-  color: hsl(228, 45%, 44%);
+    width: 8em;
+    height: auto;
+    font-size: 15px;
+  }
+  @media (max-width: 550px) {
+    footer {
+      background: none;
+    }
+
+    .soc-icons {
+      font-size: 35px;
+      padding-right: 1em;
+    }
+    .fa-phone {
+      font-size: 33px;
+    }
+
+    #skyline {
+      height: auto;
+    }
+
+    .cart-icon,
+    #cartIcon {
+      padding: 0.25em 0;
+    }
+
+    .grid-item img {
+      max-width: 300px;
+    }
+
+    .cart {
+      padding: 1em;
+    }
+    .cart-overlay {
+      width: 90vw;
+    }
+
+    .cart-footer {
+      margin: 1em 0;
+      padding: 0.25em;
+    }
+    .cart-footer h3 {
+      font-size: 16px;
+    }
+
+    #checkoutBtn {
+      width: 7em;
+      height: auto;
+      font-size: 14px;
+    }
+    /* attr */
+    .attribution {
+      font-size: 15px;
+      text-align: center;
+    }
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  }
 }
