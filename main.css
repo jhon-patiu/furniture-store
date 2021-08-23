@@ -28,7 +28,7 @@ body {
 
 /* general */
 .container {
-  width: 100vw;
+  width: 100%;
 }
 
 #skyline {
@@ -357,6 +357,14 @@ footer {
     background: none;
   }
 
+  .soc-icons {
+    font-size: 35px;
+    padding-right: 1em;
+  }
+  .fa-phone {
+    font-size: 33px;
+  }
+
   #skyline {
     height: auto;
   }
@@ -367,8 +375,7 @@ footer {
   }
 
   .grid-item img {
-    min-width: 380px;
-    max-width: 380px;
+    max-width: 300px;
   }
   .cart-overlay {
     width: 90vw;
