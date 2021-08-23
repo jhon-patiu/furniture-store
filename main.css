@@ -26,6 +26,10 @@ body {
 }
 
 /* general */
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
 #skyline {
   width: 100%;
   height: 20%;
