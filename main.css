@@ -371,7 +371,7 @@ footer {
   }
   @media (max-width: 550px) {
     body {
-      overflow-x: hidden;
+      width: 100vw;
     }
     .container {
       max-width: 460px;
