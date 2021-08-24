@@ -45,9 +45,11 @@ const checkoutButton = document.getElementById("checkoutBtn");
 class Products {
   async getProducts() {
     try {
-      let result = await fetch("products.json");
-      let data = await result.json();
-      let products = data.items;
+      const contentful = await client.getEntries({
+        content_type: "roomOnlineStoreProducts",
+      });
+
+      let products = contentful.items;
       products = products.map((item) => {
         const { id } = item.sys;
         const { title, price } = item.fields;
@@ -224,7 +226,7 @@ class Storage {
     return products.find((product) => product.id === id);
   }
   static saveCart(cart) {
-    localStorage.setItem(cart, JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
   static getCart() {
     return localStorage.getItem("cart")
@@ -250,3 +252,13 @@ function closeCart() {
 function checkout() {
   alert("Thank you for your purchase!");
 }
+
+// contentful
+
+const client = contentful.createClient({
+  // This is the space ID. A space is like a project folder in Contentful terms
+  space: "cc6pglmssbv9",
+  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+  accessToken: "Nx1SAN1k90sdaSEbmnGb1EQR6lu3GjE3wvTcnywfxSU",
+});
+console.log(client);
