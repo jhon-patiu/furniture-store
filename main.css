@@ -370,6 +370,9 @@ footer {
     font-size: 15px;
   }
   @media (max-width: 550px) {
+    body {
+      overflow-x: hidden;
+    }
     .container {
       max-width: 460px;
     }
