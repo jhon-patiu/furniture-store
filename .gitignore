@@ -15,3 +15,6 @@
 .DS_Store
 
 .prettierignore
+
+# hide contentful tokens
+config.js
