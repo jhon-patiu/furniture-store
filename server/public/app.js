@@ -293,7 +293,6 @@ function closeCart() {
 document.getElementById("shopLink").onclick = function () {
     location.href = "#shop";
 };
-
 document.getElementById("aboutLink").onclick = function () {
     location.href = "#about";
 };
