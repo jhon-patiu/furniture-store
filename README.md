@@ -8,4 +8,5 @@ Responsive Furniture Online Store with Shopping Cart functionality
 HTML / CSS / Vanilla JavaScript / Bootstrap
 
 # Live 
-demo: https://jhon-patiu.github.io/furniture-store/ 
+netlify
+demo: https://room-online-store.netlify.app/
