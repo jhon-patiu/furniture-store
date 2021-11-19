@@ -290,16 +290,16 @@ function closeCart() {
 //             console.log(url, "works");
 //         });
 // }
-// document.getElementById("shopLink").onclick = function () {
-//     location.href = "#shop";
-// };
+document.getElementById("shopLink").onclick = function () {
+    location.href = "#shop";
+};
 
-// document.getElementById("aboutLink").onclick = function () {
-//     location.href = "#about";
-// };
-// document.getElementById("contactLink").onclick = function () {
-//     location.href = "#contact";
-// };
+document.getElementById("aboutLink").onclick = function () {
+    location.href = "#about";
+};
+document.getElementById("contactLink").onclick = function () {
+    location.href = "#contact";
+};
 
 // contentful
 const client = contentful.createClient({
