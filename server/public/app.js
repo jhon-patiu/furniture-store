@@ -244,7 +244,24 @@ class Storage {
 // listeners
 cartIcon.addEventListener("click", displayCart);
 cartCloseButton.addEventListener("click", closeCart);
-checkoutButton.addEventListener("click", checkout);
+checkoutButton.addEventListener("click", () => {
+    fetch("/create-checkout-session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            items: [{ cart }],
+        }),
+    })
+        .then((res) => {
+            if (res.ok) return res.json();
+            return res.json().then((json) => Promise.reject(json));
+        })
+        .then(({ url }) => {
+            console.log(url, "works");
+        });
+});
 
 // functions
 function displayCart() {
@@ -255,9 +272,24 @@ function closeCart() {
     cartOverlay.classList.remove("showCart");
 }
 
-function checkout() {
-    alert("Thank you for your purchase!");
-}
+// function checkout() {
+//     fetch("/create-checkout-session", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//             items: [{ id: 1, quantity: 1 }],
+//         }),
+//     })
+//         .then((res) => {
+//             if (res.ok) return res.json();
+//             return res.json().then((json) => Promise.reject(json));
+//         })
+//         .then(({ url }) => {
+//             console.log(url, "works");
+//         });
+// }
 
 // contentful
 const client = contentful.createClient({

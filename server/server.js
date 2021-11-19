@@ -1,5 +1,3 @@
-const productsJson = require("./products.json");
-
 require("dotenv").config();
 
 const express = require("express");
@@ -11,16 +9,30 @@ const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 DEFAULT_PORT = 3000;
 
-const storeProducts = new Map([productsJson.items]);
+const storeProducts = new Map([[1, { price: 49, name: "brandX" }]]);
 
-console.log(storeProducts);
+app.post("/create-checkout-session", async (req, res) => {
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ["card"],
+            mode: "payment",
+            line_items: [
+                {
+                    price: 22,
+                    quantity: 1,
+                },
+            ],
 
-// Define behavior for the server when it receives a request with this URL
-// app.get("/", function (req, res) {
-//     res.send("Hello World!");
-// });
+            success_url: `${process.env.SERVER_URL}/success.html`,
+            cancel_url: `${process.env.SERVER_URL}/cancel.html`,
+        });
+        res.json({ url: session.url });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
-// Start server by listening to designated port and responding to all requests
+// listening to designated port and responding to all requests
 const server = app.listen(process.env.PORT || DEFAULT_PORT, function () {
     // Log a message to indicate that the server was started correctly
     const port = server.address().port;
