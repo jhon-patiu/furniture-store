@@ -1,5 +1,11 @@
-Online Store with Shopping Cart functionality
+# Online Store
 
-Built using HTML, CSS, Bootstrap and Vanilla JavaScript
+Responsive Furniture Online Store with Shopping Cart functionality
 
-### Live version here: https://jhon-patiu.github.io/furniture-store/ ###
+*will try to add card payment function using Stripe API later
+
+# Tech used:
+HTML / CSS / Vanilla JavaScript / Bootstrap
+
+# Live 
+demo: https://jhon-patiu.github.io/furniture-store/ 
